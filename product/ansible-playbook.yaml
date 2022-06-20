@@ -10,18 +10,25 @@
       command: docker rm py-container
       ignore_errors: yes
 
-    # - name: remove used image
-    #   command: docker rmi python-img
-    #   ignore_errors: yes
+    - name: remove used image
+      command: docker rmi python-img
+      ignore_errors: yes
 
-    # - name: build new image
-    #   command: docker build -t python-img
+    - name: build new image
+      command: docker build -t python-img .
 
     - name: run container from python image
       command: docker run -d --name py-container -p 5003:80 python-img
 
     - name: create image tag
-      command: docker tag python-img triple3a/test
+      command: docker tag python-img hamzabedwi/python-img:latest
+
+    # - name: Log into DockerHub
+    #   command: pip install docker-py
+    #   docker_login:
+    #     username: hamzabedwi
+    #     password: \@Besmillah22
+    #     debug: true
 
     - name: push image to dockerhub
-      command: docker push triple3a/test
+      command: docker push hamzabedwi/python-img:latest
